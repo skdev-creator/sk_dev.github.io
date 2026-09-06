@@ -3,339 +3,334 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SK | 3D Modeler & Environment Artist</title>
+  <title>SK Modeling | 3D Assets & Environments</title>
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: rgba(22, 27, 34, 0.65);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --text-main: #f0f6fc;
-      --text-muted: #8b949e;
-      --accent-orange: #ff6b35;
-      --accent-purple: #7928ca;
-      --accent-blue: #0070f3;
-      --gradient-text: linear-gradient(135deg, #ff6b35 0%, #f7c59f 50%, #7928ca 100%);
-      --glow: rgba(255, 107, 53, 0.25);
+      --bg-dark: #0a0f14;
+      --panel-bg: rgba(16, 26, 35, 0.85);
+      --panel-border: #1e3242;
+      --accent-cyan: #00d2ff;
+      --accent-cyan-dark: #007799;
+      --accent-silver: #a0b2c6;
+      --text-bright: #ffffff;
+      --text-dim: #8fa3b8;
+      --glow-cyan: rgba(0, 210, 255, 0.3);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text-main);
-      line-height: 1.6;
-      padding: 2rem 1rem;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 80% 20%, rgba(0, 210, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 20% 80%, rgba(0, 119, 153, 0.1) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+      color: var(--text-bright);
       min-height: 100vh;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem;
       overflow-x: hidden;
     }
 
-    /* Vibrant Ambient Background Gradients */
-    .bg-glow-1 {
-      position: absolute;
-      top: -10%;
-      left: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(255, 107, 53, 0.15) 0%, rgba(0,0,0,0) 70%);
-      filter: blur(80px);
-      z-index: -1;
-    }
-
-    .bg-glow-2 {
-      position: absolute;
-      top: 30%;
-      right: -10%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(121, 40, 202, 0.18) 0%, rgba(0,0,0,0) 70%);
-      filter: blur(100px);
-      z-index: -1;
-    }
-
     .container {
-      max-width: 1050px;
-      margin: 0 auto;
+      width: 100%;
+      max-width: 1200px;
     }
 
-    /* Hero Section */
-    header {
-      margin-bottom: 4rem;
-      padding: 3rem 2rem;
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    /* TOP NAVIGATION BAR */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      padding: 0.8rem 1.8rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      margin-bottom: 2rem;
+    }
+
+    .nav-logo {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent-silver) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent-cyan);
+      text-shadow: 0 0 8px var(--glow-cyan);
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, #1c3245 0%, #0d1a24 100%);
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--glow-cyan);
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-cyan);
+      color: var(--bg-dark);
+      box-shadow: 0 0 20px var(--accent-cyan);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 3rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
       position: relative;
     }
 
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: var(--gradient-text);
-      border-radius: 20px 20px 0 0;
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
     }
 
-    h1 {
-      font-size: 3.8rem;
+    .badge-tag {
+      align-self: flex-start;
+      background: rgba(0, 210, 255, 0.1);
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
       font-weight: 800;
-      background: var(--gradient-text);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 30%, var(--accent-silver) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -1px;
-      margin-bottom: 0.3rem;
     }
 
-    .subtitle {
-      font-size: 1.35rem;
-      color: var(--accent-orange);
-      font-weight: 600;
-      letter-spacing: 0.5px;
+    .hero-subtitle {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hero-description {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-cyan-dark) 100%);
+      color: #000;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 8px;
+      font-weight: 900;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 5px 15px var(--glow-cyan);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 210, 255, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--panel-border);
+      color: var(--text-bright);
+      padding: 0.8rem 1.8rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* HERO SHOWCASE CARD (RIGHT SIDE) */
+    .showcase-frame {
+      background: #0d1620;
+      border: 2px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .showcase-tag {
+      position: absolute;
+      top: -12px;
+      left: 15px;
+      background: var(--accent-cyan);
+      color: #000;
+      font-weight: 900;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .preview-box {
+      width: 100%;
+      height: 240px;
+      background: linear-gradient(135deg, #162432 0%, #080d14 100%);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
       margin-bottom: 1rem;
     }
 
-    header p {
+    .preview-box h3 {
+      font-size: 1.5rem;
+      color: var(--text-bright);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .showcase-info h4 {
       font-size: 1.1rem;
-      color: var(--text-muted);
-      max-width: 750px;
+      color: var(--text-bright);
+      margin-bottom: 0.4rem;
     }
 
-    section {
-      margin-bottom: 4rem;
+    .showcase-info p {
+      font-size: 0.85rem;
+      color: var(--text-dim);
     }
 
-    h2 {
-      font-size: 1.8rem;
-      color: var(--text-main);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    h2::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--card-border) 0%, rgba(0,0,0,0) 100%);
-    }
-
-    /* Skills Badges */
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-    }
-
-    .badge {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      color: var(--text-main);
-      padding: 0.5rem 1.1rem;
-      border-radius: 50px;
-      font-size: 0.92rem;
-      font-weight: 500;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-    }
-
-    .badge:hover {
-      border-color: var(--accent-orange);
-      transform: translateY(-2px);
-      box-shadow: 0 0 15px var(--glow);
-      background: rgba(255, 107, 53, 0.08);
-    }
-
-    /* Portfolio Grid & Cards */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 2rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(255, 107, 53, 0.4);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--glow);
-    }
-
-    .card-preview {
-      width: 100%;
-      height: 200px;
-      background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(121, 40, 202, 0.1) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      border-bottom: 1px solid var(--card-border);
-      position: relative;
-    }
-
-    .card-content {
-      padding: 1.8rem;
-    }
-
-    .card h3 {
-      font-size: 1.3rem;
-      color: var(--text-main);
-      margin-bottom: 0.6rem;
-    }
-
-    .card p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 1.2rem;
-    }
-
-    .card-tags {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-
-    .tag {
-      font-size: 0.75rem;
-      color: #f7c59f;
-      background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(121, 40, 202, 0.15) 100%);
-      border: 1px solid rgba(255, 107, 53, 0.2);
-      padding: 0.25rem 0.7rem;
-      border-radius: 6px;
-      font-weight: 600;
-    }
-
-    .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      color: var(--accent-orange);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: gap 0.2s ease;
-    }
-
-    .card-link:hover {
-      gap: 0.7rem;
-      color: #f7c59f;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 5rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--card-border);
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-glow-1"></div>
-  <div class="bg-glow-2"></div>
-
   <div class="container">
-    <header>
-      <h1>SK</h1>
-      <div class="subtitle">3D Modeler & Environment Artist</div>
-      <p>Specializing in procedural mesh generation, low-poly game environments, clean quad topology, and modular prop design.</p>
-    </header>
-
-    <section id="skills">
-      <h2>Software & Tech Stack</h2>
-      <div class="skills-grid">
-        <span class="badge">Blender 3D</span>
-        <span class="badge">Roblox Studio</span>
-        <span class="badge">Low-Poly / Stylized</span>
-        <span class="badge">Hard-Surface Modeling</span>
-        <span class="badge">Python (Blender API)</span>
-        <span class="badge">UV Unwrapping & Baking</span>
-        <span class="badge">Modular Environments</span>
-        <span class="badge">Substance Painter</span>
+    
+    <nav>
+      <div class="nav-logo">
+        SK <span>MODELING</span>
       </div>
-    </section>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Process</a></li>
+        <li><a href="#">Assets</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <button class="nav-btn">HIRE ME</button>
+    </nav>
 
-    <section id="work">
-      <h2>3D Asset Showcase</h2>
-      <div class="portfolio-grid">
-        
-        <div class="card">
-          <div class="card-preview">
-            <span>[ Add 3D Render / Wireframe ]</span>
-          </div>
-          <div class="card-content">
-            <h3>Procedural 3D Mesh Generator</h3>
-            <p>Python script engineered inside Blender to procedurally generate dynamic terrain, volcanoes, and cabins with clean topology.</p>
-            <div class="card-tags">
-              <span class="tag">Blender</span>
-              <span class="tag">Python</span>
-              <span class="tag">Procedural</span>
-            </div>
-            <a href="#" class="card-link">View Models & Code →</a>
-          </div>
+    <div class="hero">
+      
+      <div class="hero-left">
+        <div class="badge-tag">3D Modeler & Environment Artist</div>
+        <h1 class="hero-title">SK Modeling</h1>
+        <div class="hero-subtitle">High-Fidelity 3D Assets & Environments</div>
+        <p class="hero-description">
+          Specializing in hard-surface 3D modeling, low-poly game environments, clean quad topology, procedural mesh generation, and optimized game-ready workflows.
+        </p>
+        <div class="btn-group">
+          <button class="btn-primary">Explore Models</button>
+          <button class="btn-secondary">View Showcase</button>
         </div>
-
-        <div class="card">
-          <div class="card-preview">
-            <span>[ Add 3D Render / Wireframe ]</span>
-          </div>
-          <div class="card-content">
-            <h3>Modular Game Lobbies & Arenas</h3>
-            <p>Enclosed game arenas and lobby assets designed for seamless modular construction and high performance.</p>
-            <div class="card-tags">
-              <span class="tag">Roblox Studio</span>
-              <span class="tag">Environment Design</span>
-              <span class="tag">Modular</span>
-            </div>
-            <a href="#" class="card-link">View Environment Pack →</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-preview">
-            <span>[ Add 3D Render / Wireframe ]</span>
-          </div>
-          <div class="card-content">
-            <h3>Tiered Asset & Prop Progression</h3>
-            <p>Balanced character accessories, equipment sets, and prop progression items optimized for game mechanics.</p>
-            <div class="card-tags">
-              <span class="tag">Asset Creation</span>
-              <span class="tag">Clean Topology</span>
-              <span class="tag">Low-Poly</span>
-            </div>
-            <a href="#" class="card-link">View Asset Set →</a>
-          </div>
-        </div>
-
       </div>
-    </section>
 
-    <footer>
-      <p>© 2026 SK • Designed & Hosted on GitHub Pages</p>
-    </footer>
+      <div class="showcase-frame">
+        <div class="showcase-tag">⚡ Featured Work</div>
+        <div class="preview-box">
+          <h3>MODULAR LOBBY ARENA</h3>
+          <p style="font-size: 0.8rem; margin-top: 0.3rem;">[ 3D Render / Wireframe Image ]</p>
+        </div>
+        <div class="showcase-info">
+          <h4>Modular Environment Set</h4>
+          <p>Built with clean topology, custom texture baking, and optimized modular assets designed for high-performance game engines.</p>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
 </body>
