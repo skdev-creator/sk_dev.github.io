@@ -40,18 +40,81 @@
     }
 
     body {
+      position: relative;
       font-family: var(--display);
       background-color: var(--bg);
       background-image:
         linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
       background-size: 34px 34px;
+      animation: grid-pan 40s linear infinite;
       color: var(--text-bright);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 1.5rem;
+      overflow-x: hidden;
+    }
+
+    @keyframes grid-pan {
+      from { background-position: 0 0; }
+      to   { background-position: 340px 340px; }
+    }
+
+    .bg-fx {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .bg-fx .blob {
+      position: absolute;
+      width: 46vw;
+      height: 46vw;
+      max-width: 620px;
+      max-height: 620px;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.16;
+    }
+
+    .bg-fx .blob-cyan {
+      top: -12%;
+      left: -8%;
+      background: var(--cyan);
+      animation: drift-a 22s ease-in-out infinite alternate;
+    }
+
+    .bg-fx .blob-amber {
+      bottom: -16%;
+      right: -10%;
+      background: var(--amber);
+      animation: drift-b 26s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift-a {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(6vw, 8vh) scale(1.15); }
+    }
+
+    @keyframes drift-b {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(-7vw, -6vh) scale(1.1); }
+    }
+
+    .bg-fx .scanline {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.012) 0px,
+        rgba(255,255,255,0.012) 1px,
+        transparent 1px,
+        transparent 3px
+      );
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -278,12 +341,17 @@
       perspective: 700px;
     }
 
+    .cube-stage {
+      cursor: grab;
+    }
+
     .cube {
       position: relative;
       width: 92px;
       height: 92px;
       transform-style: preserve-3d;
       animation: spin 16s linear infinite;
+      transition: transform 0.1s ease-out;
     }
 
     .cube div {
@@ -464,6 +532,64 @@
       border-radius: 4px;
     }
 
+    .details-toggle {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      background: none;
+      border: none;
+      color: var(--cyan);
+      cursor: pointer;
+      padding: 0;
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .details-toggle::before {
+      content: '+';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--cyan);
+      border-radius: 3px;
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+    }
+
+    .work-card.is-open .details-toggle::before {
+      content: '–';
+    }
+
+    .card-specs {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    .work-card.is-open .card-specs {
+      max-height: 200px;
+      margin-top: 0.9rem;
+    }
+
+    .card-specs ul {
+      list-style: none;
+      border-top: 1px solid var(--border);
+      padding-top: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .card-specs li span {
+      color: var(--text-bright);
+    }
+
     /* ---------- GAMES ---------- */
     .games-grid {
       display: grid;
@@ -626,7 +752,7 @@
 
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 340px));
       gap: 1.2rem;
     }
 
@@ -646,6 +772,33 @@
     .contact-card:hover {
       border-color: var(--cyan);
       transform: translateY(-2px);
+    }
+
+    .contact-card-text {
+      flex: 1;
+    }
+
+    .copy-btn {
+      flex-shrink: 0;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      background: transparent;
+      border: 1px solid var(--border-bright);
+      color: var(--text-dim);
+      padding: 0.4rem 0.7rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    .copy-btn.copied {
+      border-color: var(--cyan);
+      color: var(--cyan-bright);
     }
 
     .contact-icon {
@@ -692,6 +845,12 @@
 </head>
 <body>
 
+  <div class="bg-fx" aria-hidden="true">
+    <div class="blob blob-cyan"></div>
+    <div class="blob blob-amber"></div>
+    <div class="scanline"></div>
+  </div>
+
   <div class="container">
 
     <nav>
@@ -713,7 +872,7 @@
         <p class="hero-description">Specializing in Roblox Studio and Blender models — from hard-surface props and modular environments to procedural mesh tools.</p>
         <div class="btn-group">
           <a href="#works" class="btn-primary">Explore models</a>
-          <a href="#games" class="btn-secondary">View showcase</a>
+          <a href="#games" class="btn-secondary">View games I've worked for</a>
         </div>
       </div>
 
@@ -780,6 +939,14 @@
               <span class="tag">Roblox Studio</span>
               <span class="tag">Textured (not shown above)</span>
             </div>
+            <button class="details-toggle" onclick="toggleCard(this)">Details</button>
+            <div class="card-specs">
+              <ul>
+                <li>Software: <span>Roblox Studio</span></li>
+                <li>Status: <span>Unused / archived asset</span></li>
+                <li>Texturing: <span>Complete, not shown in viewer</span></li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -798,6 +965,14 @@
               <span class="tag">Roblox Studio</span>
               <span class="tag">Environment</span>
               <span class="tag">Modular</span>
+            </div>
+            <button class="details-toggle" onclick="toggleCard(this)">Details</button>
+            <div class="card-specs">
+              <ul>
+                <li>Software: <span>Roblox Studio</span></li>
+                <li>Build type: <span>Modular / reusable kit</span></li>
+                <li>Use case: <span>Lobbies &amp; enclosed arenas</span></li>
+              </ul>
             </div>
           </div>
         </div>
@@ -818,6 +993,14 @@
               <span class="tag">Procedural</span>
               <span class="tag">Blender</span>
             </div>
+            <button class="details-toggle" onclick="toggleCard(this)">Details</button>
+            <div class="card-specs">
+              <ul>
+                <li>Software: <span>Blender (Python API)</span></li>
+                <li>Output: <span>Terrain meshes &amp; structures</span></li>
+                <li>Approach: <span>Procedural / script-driven</span></li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -829,7 +1012,7 @@
 
       <div class="games-grid">
 
-        <div class="game-card" data-universe-id="8080863905" data-place-id="139766023909499">
+        <div class="game-card" data-place-id="139766023909499">
           <div>
             <div class="live-badge"><span class="live-dot"></span>Live Roblox data</div>
             <div class="game-header">
@@ -851,7 +1034,7 @@
               </div>
               <div class="stat-item">
                 <span class="stat-value rating-stat">...</span>
-                <span class="stat-label">RATING</span>
+                <span class="stat-label">FAVORITES</span>
               </div>
             </div>
 
@@ -859,33 +1042,63 @@
           </div>
         </div>
 
-        <div class="game-card" data-universe-id="66654135" data-place-id="66654135">
+        <div class="game-card" data-place-id="128794289363497">
           <div>
             <div class="live-badge"><span class="live-dot"></span>Live Roblox data</div>
             <div class="game-header">
               <h3 class="game-title">Loading...</h3>
-              <span class="game-role">Builder &amp; Tester</span>
+              <span class="game-role">Owner</span>
             </div>
-            <p class="game-desc">Round-based arena game featuring enclosed map geometry, spawner systems, and custom props.</p>
+            <p class="game-desc">Each round, a hunter is picked and has 30 seconds to tag another player before dying. Last one standing wins.</p>
           </div>
 
           <div>
             <div class="game-stats">
               <div class="stat-item">
-                <span class="stat-value visits-stat">0</span>
+                <span class="stat-value visits-stat">...</span>
                 <span class="stat-label">VISITS</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value active-stat">0</span>
+                <span class="stat-value active-stat">...</span>
                 <span class="stat-label">ACTIVE</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value rating-stat">0%</span>
-                <span class="stat-label">RATING</span>
+                <span class="stat-value rating-stat">...</span>
+                <span class="stat-label">FAVORITES</span>
               </div>
             </div>
 
-            <a href="https://www.roblox.com/games/66654135" class="play-btn game-link" target="_blank">Play on Roblox</a>
+            <a href="https://www.roblox.com/games/128794289363497/Just-Tag" class="play-btn game-link" target="_blank">Play on Roblox</a>
+          </div>
+        </div>
+
+        <div class="game-card" data-place-id="95067631622379">
+          <div>
+            <div class="live-badge"><span class="live-dot"></span>Live Roblox data</div>
+            <div class="game-header">
+              <h3 class="game-title">Loading...</h3>
+              <span class="game-role">Modeler</span>
+            </div>
+            <p class="game-desc">A collection of quick, replayable minigames built around fast rounds and simple, readable objectives.</p>
+          </div>
+
+          <div>
+            <div class="game-stats">
+              <div class="stat-item">
+                <span class="stat-value visits-stat">...</span>
+                <span class="stat-label">VISITS</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value active-stat">...</span>
+                <span class="stat-label">ACTIVE</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value rating-stat">...</span>
+                <span class="stat-label">FAVORITES</span>
+              </div>
+            </div>
+
+            <a href="https://www.roblox.com/games/95067631622379/Untitled-Minigames" class="play-btn game-link" target="_blank">Play on Roblox</a>
           </div>
         </div>
 
@@ -907,32 +1120,22 @@
         </div>
 
         <div class="contact-grid">
-          <a href="https://discord.com/users/sk_yt1" target="_blank" class="contact-card">
-            <span class="contact-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M8 10h.01M16 10h.01"></path>
-                <path d="M21 12c0 4.5-4 8-9 8s-9-3.5-9-8 4-8 9-8 9 3.5 9 8Z"></path>
-                <path d="M8.5 15.5c1 .8 2.2 1.2 3.5 1.2s2.5-.4 3.5-1.2"></path>
-              </svg>
-            </span>
-            <span class="contact-card-text">
-              <span class="contact-label">DISCORD</span>
-              <span class="contact-value">sk_yt1</span>
-            </span>
-          </a>
-
-          <a href="https://www.roblox.com/games/139766023909499" target="_blank" class="contact-card">
-            <span class="contact-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="4" width="16" height="16" rx="2" transform="rotate(-6 12 12)"></rect>
-                <rect x="9" y="9" width="6" height="6" rx="1" transform="rotate(-6 12 12)"></rect>
-              </svg>
-            </span>
-            <span class="contact-card-text">
-              <span class="contact-label">ROBLOX STUDIO</span>
-              <span class="contact-value">Message in-game</span>
-            </span>
-          </a>
+          <div class="contact-card" style="cursor: default;">
+            <a href="https://discord.com/users/sk_yt1" target="_blank" style="display: flex; align-items: center; gap: 1rem; flex: 1; text-decoration: none; color: inherit;">
+              <span class="contact-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 10h.01M16 10h.01"></path>
+                  <path d="M21 12c0 4.5-4 8-9 8s-9-3.5-9-8 4-8 9-8 9 3.5 9 8Z"></path>
+                  <path d="M8.5 15.5c1 .8 2.2 1.2 3.5 1.2s2.5-.4 3.5-1.2"></path>
+                </svg>
+              </span>
+              <span class="contact-card-text">
+                <span class="contact-label">DISCORD</span>
+                <span class="contact-value">sk_yt1</span>
+              </span>
+            </a>
+            <button class="copy-btn" onclick="copyDiscordTag(this)">Copy</button>
+          </div>
         </div>
       </div>
 
@@ -971,17 +1174,29 @@
   updateCounter();
   setInterval(updateCounter, 1000);
 
+  // Cache placeId -> universeId lookups so we don't refetch every 30s
+  const universeIdCache = {};
+
+  async function resolveUniverseId(placeId) {
+    if (universeIdCache[placeId]) return universeIdCache[placeId];
+    const res = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
+    if (!res.ok) throw new Error(`Universe lookup error! status: ${res.status}`);
+    const data = await res.json();
+    universeIdCache[placeId] = data.universeId;
+    return data.universeId;
+  }
+
   // REAL-TIME ROBLOX API FETCHING VIA ROPROXY
   async function fetchRobloxStats() {
     const cards = document.querySelectorAll('.game-card');
 
     for (const card of cards) {
-      const universeId = card.getAttribute('data-universe-id');
       const placeId = card.getAttribute('data-place-id');
-
-      if (!universeId) continue;
+      if (!placeId) continue;
 
       try {
+        const universeId = await resolveUniverseId(placeId);
+
         // 1. Fetch Game Metadata (Visits, Active Players, Display Name)
         const gameRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeId}`);
         if (!gameRes.ok) throw new Error(`Game HTTP error! status: ${gameRes.status}`);
@@ -999,25 +1214,17 @@
 
           const activeEl = card.querySelector('.active-stat');
           if (activeEl) activeEl.innerText = game.playing ? game.playing.toLocaleString() : '0';
-
-          const linkEl = card.querySelector('.game-link');
-          if (linkEl && placeId) linkEl.href = `https://www.roblox.com/games/${placeId}`;
         }
 
-        // 2. Fetch Upvote / Downvote Ratio
-        const votesRes = await fetch(`https://games.roproxy.com/v1/games/votes?universeIds=${universeId}`);
-        if (!votesRes.ok) throw new Error(`Votes HTTP error! status: ${votesRes.status}`);
+        // 2. Fetch Favorites Count
+        const favRes = await fetch(`https://games.roproxy.com/v1/games/${universeId}/favorites/count`);
+        if (!favRes.ok) throw new Error(`Favorites HTTP error! status: ${favRes.status}`);
 
-        const votesData = await votesRes.json();
-
-        if (votesData && votesData.data && votesData.data.length > 0) {
-          const vote = votesData.data[0];
-          const totalVotes = vote.upVotes + vote.downVotes;
-          const ratingPercent = totalVotes > 0 ? Math.round((vote.upVotes / totalVotes) * 100) : 0;
-
-          const ratingEl = card.querySelector('.rating-stat');
-          if (ratingEl) ratingEl.innerText = ratingPercent + '%';
-        }
+        const favData = await favRes.json();
+        const ratingEl = card.querySelector('.rating-stat');
+        if (ratingEl) ratingEl.innerText = typeof favData.favoritesCount === 'number'
+          ? favData.favoritesCount.toLocaleString()
+          : '0';
       } catch (err) {
         console.error("Error fetching live Roblox data:", err);
       }
@@ -1026,6 +1233,71 @@
 
   fetchRobloxStats();
   setInterval(fetchRobloxStats, 30000);
+
+  // ---------- Interactive: wireframe cube tilts toward cursor ----------
+  const cubeStage = document.querySelector('.cube-stage');
+  const cube = document.querySelector('.cube');
+
+  if (cubeStage && cube) {
+    cubeStage.addEventListener('mousemove', (e) => {
+      const rect = cubeStage.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      cube.style.animationPlayState = 'paused';
+      cube.style.transform = `rotateX(${-y * 70}deg) rotateY(${x * 70}deg)`;
+    });
+
+    cubeStage.addEventListener('mouseleave', () => {
+      cube.style.transform = '';
+      cube.style.animationPlayState = 'running';
+    });
+  }
+
+  // ---------- Interactive: expandable work-card spec details ----------
+  function toggleCard(button) {
+    const card = button.closest('.work-card');
+    if (!card) return;
+    const isOpen = card.classList.toggle('is-open');
+    button.textContent = isOpen ? 'Hide details' : 'Details';
+  }
+
+  // ---------- Interactive: copy Discord tag ----------
+  function copyDiscordTag(button) {
+    const tag = 'sk_yt1';
+    const done = () => {
+      const original = button.textContent;
+      button.textContent = 'Copied!';
+      button.classList.add('copied');
+      setTimeout(() => {
+        button.textContent = original === 'Copied!' ? 'Copy' : original;
+        button.classList.remove('copied');
+      }, 1500);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(tag).then(done).catch(done);
+    } else {
+      done();
+    }
+  }
+
+  // ---------- Interactive: nav highlights the section in view ----------
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section[id]');
+
+  if ('IntersectionObserver' in window && sections.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach((section) => observer.observe(section));
+  }
   </script>
 
 </body>
