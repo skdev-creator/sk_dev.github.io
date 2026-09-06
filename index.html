@@ -742,94 +742,98 @@
   </div>
 
   <script>
-    // Live Modeling Counter
-    const startDate = new Date('2026-06-19T10:43:00');
+  // Live Modeling Counter
+  const startDate = new Date('2026-06-19T10:43:00');
 
-    function updateCounter() {
-      const now = new Date();
-      const diffMs = now - startDate;
+  function updateCounter() {
+    const now = new Date();
+    const diffMs = now - startDate;
 
-      if (diffMs < 0) {
-        document.getElementById('days').innerText = '0';
-        document.getElementById('hours').innerText = '0';
-        document.getElementById('minutes').innerText = '0';
-        document.getElementById('seconds').innerText = '0';
-        return;
-      }
-
-      const seconds = Math.floor((diffMs / 1000) % 60);
-      const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
-      const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
-      const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-      document.getElementById('days').innerText = days;
-      document.getElementById('hours').innerText = hours;
-      document.getElementById('minutes').innerText = minutes;
-      document.getElementById('seconds').innerText = seconds;
+    if (diffMs < 0) {
+      document.getElementById('days').innerText = '0';
+      document.getElementById('hours').innerText = '0';
+      document.getElementById('minutes').innerText = '0';
+      document.getElementById('seconds').innerText = '0';
+      return;
     }
 
-    updateCounter();
-    setInterval(updateCounter, 1000);
+    const seconds = Math.floor((diffMs / 1000) % 60);
+    const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
+    const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    // AUTOMATIC LIVE ROBLOX API FETCHING FUNCTION
-    async function fetchRobloxStats() {
-      const cards = document.querySelectorAll('.game-card');
+    document.getElementById('days').innerText = days;
+    document.getElementById('hours').innerText = hours;
+    document.getElementById('minutes').innerText = minutes;
+    document.getElementById('seconds').innerText = seconds;
+  }
 
-      for (const card of cards) {
-        const universeId = card.getAttribute('data-universe-id');
-        const placeId = card.getAttribute('data-place-id');
+  updateCounter();
+  setInterval(updateCounter, 1000);
+
+  // REAL-TIME ROBLOX API FETCHING VIA ROPROXY
+  async function fetchRobloxStats() {
+    const cards = document.querySelectorAll('.game-card');
+
+    for (const card of cards) {
+      const universeId = card.getAttribute('data-universe-id');
+      const placeId = card.getAttribute('data-place-id');
+
+      if (!universeId) continue;
+
+      try {
+        // 1. Fetch Game Metadata (Visits, Active Players, Display Name)
+        const gameRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeId}`);
+        if (!gameRes.ok) throw new Error(`Game HTTP error! status: ${gameRes.status}`);
         
-        if (!universeId) continue;
+        const gameData = await gameRes.json();
 
-        try {
-          // Fetch Game Details (Name, Visits, Active Players)
-          const gameRes = await fetch(`https://corsproxy.io/?https://games.roblox.com/v1/games?universeIds=${universeId}`);
-          const gameData = await gameRes.json();
+        if (gameData && gameData.data && gameData.data.length > 0) {
+          const game = gameData.data[0];
 
-          if (gameData && gameData.data && gameData.data.length > 0) {
-            const game = gameData.data[0];
-            
-            // Update Title
-            const titleEl = card.querySelector('.game-title');
-            if (titleEl) titleEl.innerText = game.name;
+          // Update Game Name
+          const titleEl = card.querySelector('.game-title');
+          if (titleEl) titleEl.innerText = game.name;
 
-            // Update Visits
-            const visitsEl = card.querySelector('.visits-stat');
-            if (visitsEl) visitsEl.innerText = game.visits.toLocaleString();
+          // Update Visit Count
+          const visitsEl = card.querySelector('.visits-stat');
+          if (visitsEl) visitsEl.innerText = game.visits ? game.visits.toLocaleString() : '0';
 
-            // Update Active Players
-            const activeEl = card.querySelector('.active-stat');
-            if (activeEl) activeEl.innerText = game.playing.toLocaleString();
+          // Update Active Playing Count
+          const activeEl = card.querySelector('.active-stat');
+          if (activeEl) activeEl.innerText = game.playing ? game.playing.toLocaleString() : '0';
 
-            // Update Play Button URL
-            const linkEl = card.querySelector('.game-link');
-            if (linkEl && placeId) linkEl.href = `https://www.roblox.com/games/${placeId}`;
-          }
-
-          // Fetch Game Votes (Like Ratio)
-          const votesRes = await fetch(`https://corsproxy.io/?https://games.roblox.com/v1/games/votes?universeIds=${universeId}`);
-          const votesData = await votesRes.json();
-
-          if (votesData && votesData.data && votesData.data.length > 0) {
-            const vote = votesData.data[0];
-            const totalVotes = vote.upVotes + vote.downVotes;
-            const ratingPercent = totalVotes > 0 ? Math.round((vote.upVotes / totalVotes) * 100) : 0;
-
-            const ratingEl = card.querySelector('.rating-stat');
-            if (ratingEl) ratingEl.innerText = ratingPercent + '%';
-          }
-        } catch (err) {
-          console.error("Error fetching Roblox data:", err);
+          // Update Roblox Play Link
+          const linkEl = card.querySelector('.game-link');
+          if (linkEl && placeId) linkEl.href = `https://www.roblox.com/games/${placeId}`;
         }
+
+        // 2. Fetch Upvote / Downvote Ratio
+        const votesRes = await fetch(`https://games.roproxy.com/v1/games/votes?universeIds=${universeId}`);
+        if (!votesRes.ok) throw new Error(`Votes HTTP error! status: ${votesRes.status}`);
+        
+        const votesData = await votesRes.json();
+
+        if (votesData && votesData.data && votesData.data.length > 0) {
+          const vote = votesData.data[0];
+          const totalVotes = vote.upVotes + vote.downVotes;
+          const ratingPercent = totalVotes > 0 ? Math.round((vote.upVotes / totalVotes) * 100) : 0;
+
+          const ratingEl = card.querySelector('.rating-stat');
+          if (ratingEl) ratingEl.innerText = ratingPercent + '%';
+        }
+      } catch (err) {
+        console.error("Error fetching live Roblox data:", err);
       }
     }
+  }
 
-    // Initial fetch on page load
-    fetchRobloxStats();
+  // Initial fetch on page load
+  fetchRobloxStats();
 
-    // Automatically update stats live every 30 seconds
-    setInterval(fetchRobloxStats, 30000);
-  </script>
+  // Auto-refresh stats live every 30 seconds
+  setInterval(fetchRobloxStats, 30000);
+</script>
 
 </body>
 </html>
