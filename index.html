@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SK MODELING | Game Developer & Tester</title>
+  
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
   <style>
     :root {
       --bg-dark: #070a0e;
@@ -112,6 +115,7 @@
       gap: 2.5rem;
       align-items: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      margin-bottom: 3rem;
     }
 
     /* LEFT SIDE CONTENT */
@@ -172,6 +176,8 @@
       cursor: pointer;
       box-shadow: 0 0 15px var(--glow-cyan);
       transition: transform 0.2s, background 0.2s;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .btn-primary:hover {
@@ -191,6 +197,8 @@
       text-transform: uppercase;
       cursor: pointer;
       transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .btn-secondary:hover {
@@ -274,6 +282,90 @@
       padding-top: 1rem;
     }
 
+    /* WORKS SECTION */
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--panel-border);
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .work-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .work-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    /* 3D INTERACTIVE VIEWPORT CONTAINER */
+    model-viewer {
+      width: 100%;
+      height: 250px;
+      background: #080d14;
+      border-bottom: 1px solid var(--panel-border);
+      --poster-color: transparent;
+    }
+
+    .card-info {
+      padding: 1.5rem;
+    }
+
+    .card-info h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .card-info p {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      margin-bottom: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 800;
+      background: #14202c;
+      border: 1px solid var(--panel-border);
+      color: var(--accent-cyan);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
     /* RESPONSIVE DESIGN */
     @media (max-width: 900px) {
       .hero-panel {
@@ -293,7 +385,7 @@
       <div class="nav-logo">SK MODELING</div>
       <ul class="nav-links">
         <li><a href="#" class="active">HOME</a></li>
-        <li><a href="#">WORKS</a></li>
+        <li><a href="#works">WORKS</a></li>
         <li><a href="#">GAMES I'VE TESTED</a></li>
         <li><a href="#">CONTACT</a></li>
       </ul>
@@ -308,8 +400,8 @@
         <div class="hero-subtitle">GAME DEVELOPER/TESTER</div>
         <p class="hero-description">Specializing in Roblox Studio and Blender Models.</p>
         <div class="btn-group">
-          <button class="btn-primary">EXPLORE MODELS</button>
-          <button class="btn-secondary">VIEW SHOWCASE</button>
+          <a href="#works" class="btn-primary">EXPLORE MODELS</a>
+          <a href="#works" class="btn-secondary">VIEW SHOWCASE</a>
         </div>
       </div>
 
@@ -345,6 +437,71 @@
         </div>
       </div>
 
+    </div>
+
+    <div id="works">
+      <h2 class="section-title">FEATURED WORKS</h2>
+      
+      <div class="works-grid">
+
+        <div class="work-card">
+          <model-viewer 
+            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+            alt="3D Character Model" 
+            auto-rotate 
+            camera-controls 
+            shadow-intensity="1">
+          </model-viewer>
+          <div class="card-info">
+            <h3>Character Gear & Assets</h3>
+            <p>Custom 3D character accessories and gear progression sets with clean topology and low poly counts.</p>
+            <div class="card-tags">
+              <span class="tag">Blender</span>
+              <span class="tag">Low-Poly</span>
+              <span class="tag">Rigged</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <model-viewer 
+            src="https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/DamagedHelmet/glTF-Binary/DamagedHelmet.glb" 
+            alt="3D Hard Surface Model" 
+            auto-rotate 
+            camera-controls 
+            shadow-intensity="1">
+          </model-viewer>
+          <div class="card-info">
+            <h3>Modular Arena & Lobbies</h3>
+            <p>Enclosed game lobbies and environment prop packs designed for high-performance game engines.</p>
+            <div class="card-tags">
+              <span class="tag">Roblox Studio</span>
+              <span class="tag">Environment</span>
+              <span class="tag">Modular</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <model-viewer 
+            src="https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/MaterialsVariantsShoe/glTF-Binary/MaterialsVariantsShoe.glb" 
+            alt="3D Prop Model" 
+            auto-rotate 
+            camera-controls 
+            shadow-intensity="1">
+          </model-viewer>
+          <div class="card-info">
+            <h3>Procedural Mesh Generator</h3>
+            <p>Procedural terrain generation tools and 3D structures script built inside Blender API.</p>
+            <div class="card-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Procedural</span>
+              <span class="tag">Blender</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
   </div>
