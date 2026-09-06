@@ -439,7 +439,54 @@
       border-top: 1px solid var(--border);
       padding-top: 0.9rem;
       line-height: 1.5;
+      margin-bottom: 1.2rem;
     }
+
+    .stats-row {
+      display: flex;
+      gap: 0.7rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.1rem;
+    }
+
+    .stat-pill {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--text-bright);
+    }
+
+    .stat-pill svg { flex-shrink: 0; color: var(--text-dim); }
+
+    .stat-pill-label {
+      font-size: 0.62rem;
+      color: var(--text-dim);
+    }
+
+    button.stat-pill {
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      font-family: var(--mono);
+    }
+
+    button.stat-pill:hover {
+      border-color: var(--border-bright);
+    }
+
+    button.stat-pill.liked {
+      border-color: var(--amber);
+      background: rgba(232, 161, 95, 0.08);
+    }
+
+    button.stat-pill.liked svg { color: var(--amber); fill: var(--amber); }
 
     section {
       scroll-margin-top: 100px;
@@ -723,6 +770,153 @@
       100% { opacity: 0.3; }
     }
 
+    /* ---------- REVIEWS ---------- */
+    .reviews-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 1.6rem;
+      margin-bottom: 4rem;
+      align-items: start;
+    }
+
+    .review-form {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .review-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .review-form input[type="text"],
+    .review-form textarea {
+      font-family: var(--display);
+      font-size: 0.92rem;
+      color: var(--text-bright);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.7rem 0.85rem;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+
+    .review-form input[type="text"]:focus,
+    .review-form textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+
+    .star-picker {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .star-picker .star {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.6rem;
+      line-height: 1;
+      color: var(--border-bright);
+      transition: color 0.15s, transform 0.15s;
+      padding: 0;
+    }
+
+    .star-picker .star:hover {
+      transform: scale(1.12);
+    }
+
+    .star-picker .star.filled {
+      color: var(--amber);
+    }
+
+    .review-form-error {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--amber);
+      min-height: 1em;
+    }
+
+    .review-form .btn-primary {
+      align-self: flex-start;
+    }
+
+    .reviews-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-height: 560px;
+      overflow-y: auto;
+      padding-right: 0.3rem;
+    }
+
+    .review-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.3rem;
+    }
+
+    .review-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .review-card-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .review-card-stars {
+      font-size: 0.85rem;
+      color: var(--amber);
+      letter-spacing: 1px;
+    }
+
+    .review-card-text {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+    }
+
+    .review-card-date {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      margin-top: 0.6rem;
+      display: block;
+    }
+
+    .reviews-empty {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      text-align: center;
+      padding: 2rem 1rem;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+    }
+
+    @media (max-width: 800px) {
+      .reviews-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ---------- CONTACT ---------- */
     .contact-panel {
       position: relative;
@@ -736,6 +930,11 @@
     .contact-intro {
       max-width: 46ch;
       margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .contact-intro h3 {
@@ -748,6 +947,22 @@
       color: var(--text-dim);
       font-size: 0.95rem;
       line-height: 1.6;
+    }
+
+    .contact-clock {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 0.8rem;
+      white-space: nowrap;
+    }
+
+    .contact-clock span {
+      color: var(--cyan);
+      font-weight: 600;
     }
 
     .contact-grid {
@@ -776,29 +991,6 @@
 
     .contact-card-text {
       flex: 1;
-    }
-
-    .copy-btn {
-      flex-shrink: 0;
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      background: transparent;
-      border: 1px solid var(--border-bright);
-      color: var(--text-dim);
-      padding: 0.4rem 0.7rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .copy-btn:hover {
-      border-color: var(--cyan);
-      color: var(--cyan);
-    }
-
-    .copy-btn.copied {
-      border-color: var(--cyan);
-      color: var(--cyan-bright);
     }
 
     .contact-icon {
@@ -859,6 +1051,7 @@
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#works">Works</a></li>
         <li><a href="#games">Games</a></li>
+        <li><a href="#reviews">Reviews</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <a href="#contact" class="nav-btn">Hire me</a>
@@ -916,6 +1109,24 @@
           </div>
 
           <div class="timer-footer">Continuously building and refining 3D assets &amp; game experiences.</div>
+
+          <div class="stats-row">
+            <div class="stat-pill" id="viewsPill" title="Total page views">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <span id="viewCount">—</span>
+              <span class="stat-pill-label">views</span>
+            </div>
+            <button class="stat-pill" id="likeBtn" onclick="toggleLike()" title="Like this portfolio">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path>
+              </svg>
+              <span id="likeCount">—</span>
+              <span class="stat-pill-label">likes</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -1105,6 +1316,43 @@
       </div>
     </section>
 
+    <section id="reviews">
+      <h2 class="section-title">Reviews</h2>
+
+      <div class="reviews-layout">
+        <form class="review-form" id="reviewForm">
+          <label>
+            Your name or nickname
+            <input type="text" id="reviewName" maxlength="30" placeholder="e.g. Jayden_23" autocomplete="off">
+          </label>
+
+          <label>
+            Rating
+            <div class="star-picker" id="starPicker" role="radiogroup" aria-label="Star rating">
+              <button type="button" class="star" data-value="1" aria-label="1 star">★</button>
+              <button type="button" class="star" data-value="2" aria-label="2 stars">★</button>
+              <button type="button" class="star" data-value="3" aria-label="3 stars">★</button>
+              <button type="button" class="star" data-value="4" aria-label="4 stars">★</button>
+              <button type="button" class="star" data-value="5" aria-label="5 stars">★</button>
+            </div>
+          </label>
+
+          <label>
+            Your review
+            <textarea id="reviewText" rows="3" maxlength="400" placeholder="What did you think?"></textarea>
+          </label>
+
+          <div class="review-form-error" id="reviewError" aria-live="polite"></div>
+
+          <button type="submit" class="btn-primary">Post review</button>
+        </form>
+
+        <div class="reviews-list" id="reviewsList">
+          <p class="reviews-empty" id="reviewsEmpty">Loading reviews…</p>
+        </div>
+      </div>
+    </section>
+
     <section id="contact">
       <h2 class="section-title">Contact me</h2>
 
@@ -1115,27 +1363,27 @@
         <div class="hud-corner br"></div>
 
         <div class="contact-intro">
-          <h3>Let's build something</h3>
-          <p>Interested in collaborating or hiring me for 3D modeling and game testing? Reach out through either channel below — I usually reply within a day.</p>
+          <div>
+            <h3>Let's build something</h3>
+            <p>Interested in collaborating or hiring me for 3D modeling and game testing? Reach out on Discord — I usually reply within a day.</p>
+          </div>
+          <div class="contact-clock" id="contactClock">YOUR LOCAL TIME <span id="clockValue">--:--:--</span></div>
         </div>
 
         <div class="contact-grid">
-          <div class="contact-card" style="cursor: default;">
-            <a href="https://discord.com/users/sk_yt1" target="_blank" style="display: flex; align-items: center; gap: 1rem; flex: 1; text-decoration: none; color: inherit;">
-              <span class="contact-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M8 10h.01M16 10h.01"></path>
-                  <path d="M21 12c0 4.5-4 8-9 8s-9-3.5-9-8 4-8 9-8 9 3.5 9 8Z"></path>
-                  <path d="M8.5 15.5c1 .8 2.2 1.2 3.5 1.2s2.5-.4 3.5-1.2"></path>
-                </svg>
-              </span>
-              <span class="contact-card-text">
-                <span class="contact-label">DISCORD</span>
-                <span class="contact-value">sk_yt1</span>
-              </span>
-            </a>
-            <button class="copy-btn" onclick="copyDiscordTag(this)">Copy</button>
-          </div>
+          <a href="https://discord.com/users/sk_yt1" target="_blank" class="contact-card">
+            <span class="contact-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 10h.01M16 10h.01"></path>
+                <path d="M21 12c0 4.5-4 8-9 8s-9-3.5-9-8 4-8 9-8 9 3.5 9 8Z"></path>
+                <path d="M8.5 15.5c1 .8 2.2 1.2 3.5 1.2s2.5-.4 3.5-1.2"></path>
+              </svg>
+            </span>
+            <span class="contact-card-text">
+              <span class="contact-label">DISCORD</span>
+              <span class="contact-value">sk_yt1</span>
+            </span>
+          </a>
         </div>
       </div>
 
@@ -1261,25 +1509,201 @@
     button.textContent = isOpen ? 'Hide details' : 'Details';
   }
 
-  // ---------- Interactive: copy Discord tag ----------
-  function copyDiscordTag(button) {
-    const tag = 'sk_yt1';
-    const done = () => {
-      const original = button.textContent;
-      button.textContent = 'Copied!';
-      button.classList.add('copied');
-      setTimeout(() => {
-        button.textContent = original === 'Copied!' ? 'Copy' : original;
-        button.classList.remove('copied');
-      }, 1500);
-    };
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(tag).then(done).catch(done);
-    } else {
-      done();
+  // ---------- Persistent storage helpers ----------
+  // window.storage persists data across visits/sessions for this artifact.
+  // shared = true means every visitor reads/writes the same value (site-wide).
+  // shared = false means it's remembered only on this visitor's own device.
+  async function storageGet(key, shared) {
+    try {
+      const res = await window.storage.get(key, shared);
+      return res ? res.value : null;
+    } catch (e) {
+      return null; // key not found yet, or storage unavailable
     }
   }
+
+  async function storageSet(key, value, shared) {
+    try {
+      await window.storage.set(key, value, shared);
+      return true;
+    } catch (e) {
+      console.error('Could not save', key, e);
+      return false;
+    }
+  }
+
+  // ---------- Views & Likes (site-wide, persisted) ----------
+  async function initStats() {
+    const viewCountEl = document.getElementById('viewCount');
+    const likeCountEl = document.getElementById('likeCount');
+    const likeBtn = document.getElementById('likeBtn');
+
+    // Count this page load as a view
+    try {
+      const raw = await storageGet('stats:views', true);
+      const current = (parseInt(raw, 10) || 0) + 1;
+      await storageSet('stats:views', String(current), true);
+      viewCountEl.textContent = current.toLocaleString();
+    } catch (e) {
+      viewCountEl.textContent = '—';
+    }
+
+    // Show current like total
+    const rawLikes = await storageGet('stats:likes', true);
+    const likeTotal = parseInt(rawLikes, 10) || 0;
+    likeCountEl.textContent = likeTotal.toLocaleString();
+
+    // Reflect whether this visitor already liked it (personal, not shared)
+    const likedBefore = await storageGet('liked:portfolio', false);
+    if (likedBefore === 'true') {
+      likeBtn.classList.add('liked');
+    }
+  }
+
+  async function toggleLike() {
+    const likeBtn = document.getElementById('likeBtn');
+    const likeCountEl = document.getElementById('likeCount');
+    const alreadyLiked = likeBtn.classList.contains('liked');
+
+    const rawLikes = await storageGet('stats:likes', true);
+    const current = parseInt(rawLikes, 10) || 0;
+    const updated = alreadyLiked ? Math.max(0, current - 1) : current + 1;
+
+    const savedShared = await storageSet('stats:likes', String(updated), true);
+    if (!savedShared) return;
+
+    await storageSet('liked:portfolio', alreadyLiked ? 'false' : 'true', false);
+    likeBtn.classList.toggle('liked');
+    likeCountEl.textContent = updated.toLocaleString();
+  }
+
+  // ---------- Reviews (site-wide, persisted) ----------
+  let selectedRating = 0;
+  const starButtons = document.querySelectorAll('#starPicker .star');
+
+  function paintStars(value) {
+    starButtons.forEach((btn) => {
+      btn.classList.toggle('filled', parseInt(btn.dataset.value, 10) <= value);
+    });
+  }
+
+  starButtons.forEach((btn) => {
+    btn.addEventListener('mouseenter', () => paintStars(parseInt(btn.dataset.value, 10)));
+    btn.addEventListener('mouseleave', () => paintStars(selectedRating));
+    btn.addEventListener('click', () => {
+      selectedRating = parseInt(btn.dataset.value, 10);
+      paintStars(selectedRating);
+    });
+  });
+
+  function escapeText(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderReviews(reviews) {
+    const list = document.getElementById('reviewsList');
+    list.innerHTML = '';
+
+    if (!reviews.length) {
+      list.innerHTML = '<p class="reviews-empty">No reviews yet — be the first!</p>';
+      return;
+    }
+
+    reviews.forEach((review) => {
+      const card = document.createElement('div');
+      card.className = 'review-card';
+
+      const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+      const date = new Date(review.ts).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+
+      card.innerHTML = `
+        <div class="review-card-head">
+          <span class="review-card-name">${escapeText(review.name)}</span>
+          <span class="review-card-stars">${stars}</span>
+        </div>
+        <p class="review-card-text">${escapeText(review.text)}</p>
+        <span class="review-card-date">${date}</span>
+      `;
+      list.appendChild(card);
+    });
+  }
+
+  async function loadReviews() {
+    const raw = await storageGet('reviews:list', true);
+    let reviews = [];
+    if (raw) {
+      try { reviews = JSON.parse(raw); } catch (e) { reviews = []; }
+    }
+    renderReviews(reviews);
+    return reviews;
+  }
+
+  const reviewForm = document.getElementById('reviewForm');
+  reviewForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const nameInput = document.getElementById('reviewName');
+    const textInput = document.getElementById('reviewText');
+    const errorEl = document.getElementById('reviewError');
+
+    const name = nameInput.value.trim();
+    const text = textInput.value.trim();
+
+    if (!name) {
+      errorEl.textContent = 'Please enter your name or nickname.';
+      nameInput.focus();
+      return;
+    }
+    if (!selectedRating) {
+      errorEl.textContent = 'Please choose a star rating.';
+      return;
+    }
+    if (!text) {
+      errorEl.textContent = 'Please write a short review.';
+      textInput.focus();
+      return;
+    }
+
+    errorEl.textContent = '';
+
+    const raw = await storageGet('reviews:list', true);
+    let reviews = [];
+    if (raw) {
+      try { reviews = JSON.parse(raw); } catch (err) { reviews = []; }
+    }
+
+    reviews.unshift({
+      name: name.slice(0, 30),
+      rating: selectedRating,
+      text: text.slice(0, 400),
+      ts: Date.now()
+    });
+
+    const saved = await storageSet('reviews:list', JSON.stringify(reviews), true);
+    if (!saved) {
+      errorEl.textContent = 'Could not save your review — please try again.';
+      return;
+    }
+
+    renderReviews(reviews);
+
+    reviewForm.reset();
+    selectedRating = 0;
+    paintStars(0);
+  });
+
+  initStats();
+  loadReviews();
+
+  // ---------- Interactive: your local time, ticking in the contact panel ----------
+  function updateClock() {
+    const el = document.getElementById('clockValue');
+    if (el) el.textContent = new Date().toLocaleTimeString();
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
 
   // ---------- Interactive: nav highlights the section in view ----------
   const navLinks = document.querySelectorAll('.nav-links a');
