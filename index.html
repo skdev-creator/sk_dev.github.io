@@ -1,25 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; color: #333; }
-        header { border-bottom: 1px solid #ddd; padding-bottom: 20px; }
-        .projects { margin-top: 30px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Modeler & Asset Artist Portfolio</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --heading: #f0f6fc;
+      --accent: #f77234; /* Warm orange accent suited for 3D/Blender themes */
+      --tag-bg: rgba(247, 114, 52, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+    }
+
+    h1 {
+      color: var(--heading);
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--accent);
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      margin-top: 0.8rem;
+      font-size: 1.05rem;
+      max-width: 700px;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
+    }
+
+    h2 {
+      color: var(--heading);
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .badge {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--heading);
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .card-preview {
+      width: 100%;
+      height: 180px;
+      background-color: #21262d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8b949e;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card h3 {
+      color: var(--heading);
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      color: var(--accent);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .card-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .card-link:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      color: #8b949e;
+      font-size: 0.85rem;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
 </head>
 <body>
+
+  <div class="container">
     <header>
-        <h1>Hi, I'm [Your Name]</h1>
-        <p>A passionate developer / designer / creator.</p>
+      <h1>Your Name</h1>
+      <div class="subtitle">3D Modeler & Environment Artist</div>
+      <p>Creating optimized 3D assets, procedural meshes, modular game environments, and character prop sets with clean topology.</p>
     </header>
-    <section class="projects">
-        <h2>My Projects</h2>
-        <ul>
-            <li><strong>Project 1:</strong> A brief description of your awesome project.</li>
-        </ul>
+
+    <section id="skills">
+      <h2>Software & Technical Expertise</h2>
+      <div class="skills-grid">
+        <span class="badge">Blender 3D</span>
+        <span class="badge">Roblox Studio</span>
+        <span class="badge">Low-Poly / Stylized</span>
+        <span class="badge">Hard-Surface Modeling</span>
+        <span class="badge">Python (Blender API)</span>
+        <span class="badge">UV Unwrapping & Baking</span>
+        <span class="badge">Modular Environment Design</span>
+        <span class="badge">Substance Painter</span>
+      </div>
     </section>
+
+    <section id="work">
+      <h2>3D Asset Showcase</h2>
+      <div class="portfolio-grid">
+        
+        <!-- Asset Card 1 -->
+        <div class="card">
+          <div class="card-preview">
+            <!-- Replace src with your render/wireframe image link -->
+            <span>[ Add 3D Render / Wireframe Image ]</span>
+          </div>
+          <div class="card-content">
+            <h3>Procedural 3D Mesh Generator</h3>
+            <p>Python script built inside Blender to procedurally generate dynamic 3D terrain, volcanoes, and cabins with low poly counts.</p>
+            <div class="card-tags">
+              <span class="tag">Blender</span>
+              <span class="tag">Python</span>
+              <span class="tag">Procedural</span>
+            </div>
+            <a href="#" class="card-link">View Models & Code →</a>
+          </div>
+        </div>
+
+        <!-- Asset Card 2 -->
+        <div class="card">
+          <div class="card-preview">
+            <span>[ Add 3D Render / Wireframe Image ]</span>
+          </div>
+          <div class="card-content">
+            <h3>Modular Game Lobbies & Arenas</h3>
+            <p>Enclosed game environments and survival arena assets built for high performance and modular level construction.</p>
+            <div class="card-tags">
+              <span class="tag">Roblox Studio</span>
+              <span class="tag">Environment Design</span>
+              <span class="tag">Modular</span>
+            </div>
+            <a href="#" class="card-link">View Environment Pack →</a>
+          </div>
+        </div>
+
+        <!-- Asset Card 3 -->
+        <div class="card">
+          <div class="card-preview">
+            <span>[ Add 3D Render / Wireframe Image ]</span>
+          </div>
+          <div class="card-content">
+            <h3>Tiered Asset & Prop Progression</h3>
+            <p>Balanced character accessories, equipment tiers, and prop sets optimized for game progression systems.</p>
+            <div class="card-tags">
+              <span class="tag">Asset Creation</span>
+              <span class="tag">Clean Topology</span>
+              <span class="tag">Low-Poly</span>
+            </div>
+            <a href="#" class="card-link">View Asset Set →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Your Name • 3D Modeling Portfolio hosted on GitHub Pages</p>
+    </footer>
+  </div>
+
 </body>
 </html>
