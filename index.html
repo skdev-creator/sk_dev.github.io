@@ -27,7 +27,6 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* ENABLES SMOOTH SCROLLING ACROSS ALL NAVBAR LINKS */
     html {
       scroll-behavior: smooth;
     }
@@ -51,7 +50,6 @@
       max-width: 1100px;
     }
 
-    /* TOP NAVIGATION BAR */
     nav {
       position: sticky;
       top: 1rem;
@@ -114,7 +112,6 @@
       box-shadow: 0 0 15px var(--glow-cyan);
     }
 
-    /* MAIN CONTAINER CARD */
     .hero-panel {
       background: var(--panel-bg);
       border: 1px solid var(--panel-border);
@@ -129,7 +126,6 @@
       scroll-margin-top: 100px;
     }
 
-    /* LEFT SIDE CONTENT */
     .badge-tag {
       display: inline-block;
       background: rgba(0, 188, 212, 0.08);
@@ -216,7 +212,6 @@
       background: #223040;
     }
 
-    /* RIGHT SIDE LIVE TIMER COUNTER */
     .timer-frame {
       background: var(--card-bg);
       border: 1px solid var(--panel-border);
@@ -293,7 +288,6 @@
       padding-top: 1rem;
     }
 
-    /* GENERAL SECTIONS & TITLES */
     section {
       scroll-margin-top: 100px;
     }
@@ -316,7 +310,6 @@
       background: var(--panel-border);
     }
 
-    /* WORKS SECTION */
     .works-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -381,7 +374,6 @@
       text-transform: uppercase;
     }
 
-    /* GAMES WORKED ON SECTION */
     .games-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -438,7 +430,6 @@
       line-height: 1.5;
     }
 
-    /* LIVE GAME STATS BOX */
     .game-stats {
       background: #080e14;
       border: 1px solid var(--panel-border);
@@ -494,7 +485,32 @@
       border-color: var(--accent-cyan);
     }
 
-    /* RESPONSIVE DESIGN */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.65rem;
+      color: var(--accent-cyan-bright);
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent-cyan-bright);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-cyan-bright);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+
     @media (max-width: 900px) {
       .hero-panel {
         grid-template-columns: 1fr;
@@ -521,7 +537,6 @@
     </nav>
 
     <section id="home" class="hero-panel">
-      
       <div class="hero-left">
         <div class="badge-tag">3D MODELER/BUILDER & GAME TESTER</div>
         <h1 class="hero-title">HI THERE, I'M SK</h1>
@@ -535,7 +550,6 @@
 
       <div class="timer-frame">
         <div class="timer-tag">⚡ TIME MODELING</div>
-        
         <div class="timer-header">
           <h3>MODELING JOURNEY</h3>
           <p>Started: June 19, 2026 at 10:43 AM</p>
@@ -564,12 +578,10 @@
           Continuously building and refining 3D assets & game experiences.
         </div>
       </div>
-
     </section>
 
     <section id="works">
       <h2 class="section-title">FEATURED WORKS</h2>
-      
       <div class="works-grid">
 
         <div class="work-card">
@@ -636,39 +648,41 @@
 
       <div class="games-grid">
 
-        <div class="game-card">
+        <div class="game-card" data-universe-id="8080863905" data-place-id="139766023909499">
           <div>
+            <div class="live-badge"><span class="live-dot"></span> LIVE ROBLOX DATA</div>
             <div class="game-header">
-              <h3 class="game-title">Elemental RNG</h3>
+              <h3 class="game-title">Loading...</h3>
               <span class="game-role">3D Modeler & Tester</span>
             </div>
-            <p class="game-desc">RNG game featuring custom drop tables, mutation mechanics, and custom lobby structures.</p>
+            <p class="game-desc">Custom drop tables, mutation mechanics, and lobby architecture created in Blender and Roblox Studio.</p>
           </div>
 
           <div>
             <div class="game-stats">
               <div class="stat-item">
-                <span class="stat-value counter" data-target="125000">0</span>
+                <span class="stat-value visits-stat">0</span>
                 <span class="stat-label">Visits</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value counter" data-target="420">0</span>
+                <span class="stat-value active-stat">0</span>
                 <span class="stat-label">Active</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value counter-percent" data-target="94">0</span>
+                <span class="stat-value rating-stat">0%</span>
                 <span class="stat-label">Rating</span>
               </div>
             </div>
 
-            <a href="#" class="play-btn" target="_blank">PLAY ON ROBLOX</a>
+            <a href="https://www.roblox.com/games/189707" class="play-btn game-link" target="_blank">PLAY ON ROBLOX</a>
           </div>
         </div>
 
-        <div class="game-card">
+        <div class="game-card" data-universe-id="66654135" data-place-id="66654135">
           <div>
+            <div class="live-badge"><span class="live-dot"></span> LIVE ROBLOX DATA</div>
             <div class="game-header">
-              <h3 class="game-title">Zombie Survival Arena</h3>
+              <h3 class="game-title">Loading...</h3>
               <span class="game-role">Builder & Tester</span>
             </div>
             <p class="game-desc">Round-based arena game featuring enclosed map geometry, spawner systems, and custom props.</p>
@@ -677,49 +691,20 @@
           <div>
             <div class="game-stats">
               <div class="stat-item">
-                <span class="stat-value counter" data-target="85000">0</span>
+                <span class="stat-value visits-stat">0</span>
                 <span class="stat-label">Visits</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value counter" data-target="180">0</span>
+                <span class="stat-value active-stat">0</span>
                 <span class="stat-label">Active</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value counter-percent" data-target="91">0</span>
+                <span class="stat-value rating-stat">0%</span>
                 <span class="stat-label">Rating</span>
               </div>
             </div>
 
-            <a href="#" class="play-btn" target="_blank">PLAY ON ROBLOX</a>
-          </div>
-        </div>
-
-        <div class="game-card">
-          <div>
-            <div class="game-header">
-              <h3 class="game-title">Tower Defense Progression</h3>
-              <span class="game-role">Asset Creator</span>
-            </div>
-            <p class="game-desc">Character tier progression models and asset gear systems created in Blender.</p>
-          </div>
-
-          <div>
-            <div class="game-stats">
-              <div class="stat-item">
-                <span class="stat-value counter" data-target="210000">0</span>
-                <span class="stat-label">Visits</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value counter" data-target="650">0</span>
-                <span class="stat-label">Active</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value counter-percent" data-target="96">0</span>
-                <span class="stat-label">Rating</span>
-              </div>
-            </div>
-
-            <a href="#" class="play-btn" target="_blank">PLAY ON ROBLOX</a>
+            <a href="https://www.roblox.com/games/66654135" class="play-btn game-link" target="_blank">PLAY ON ROBLOX</a>
           </div>
         </div>
 
@@ -737,7 +722,7 @@
   </div>
 
   <script>
-    // Live Modeling Counter Script
+    // Live Modeling Counter
     const startDate = new Date('2026-06-19T10:43:00');
 
     function updateCounter() {
@@ -766,57 +751,64 @@
     updateCounter();
     setInterval(updateCounter, 1000);
 
-    // Animated Count-Up for Roblox Game Stats
-    function animateCounters() {
-      const counters = document.querySelectorAll('.counter');
-      const percentCounters = document.querySelectorAll('.counter-percent');
+    // AUTOMATIC LIVE ROBLOX API FETCHING FUNCTION
+    async function fetchRobloxStats() {
+      const cards = document.querySelectorAll('.game-card');
 
-      counters.forEach(counter => {
-        const target = +counter.getAttribute('data-target');
-        let count = 0;
-        const speed = target / 50;
+      for (const card of cards) {
+        const universeId = card.getAttribute('data-universe-id');
+        const placeId = card.getAttribute('data-place-id');
+        
+        if (!universeId) continue;
 
-        const updateCount = () => {
-          count += speed;
-          if (count < target) {
-            counter.innerText = Math.ceil(count).toLocaleString();
-            setTimeout(updateCount, 25);
-          } else {
-            counter.innerText = target.toLocaleString();
+        try {
+          // Fetch Game Details (Name, Visits, Active Players)
+          const gameRes = await fetch(`https://corsproxy.io/?https://games.roblox.com/v1/games?universeIds=${universeId}`);
+          const gameData = await gameRes.json();
+
+          if (gameData && gameData.data && gameData.data.length > 0) {
+            const game = gameData.data[0];
+            
+            // Update Title
+            const titleEl = card.querySelector('.game-title');
+            if (titleEl) titleEl.innerText = game.name;
+
+            // Update Visits
+            const visitsEl = card.querySelector('.visits-stat');
+            if (visitsEl) visitsEl.innerText = game.visits.toLocaleString();
+
+            // Update Active Players
+            const activeEl = card.querySelector('.active-stat');
+            if (activeEl) activeEl.innerText = game.playing.toLocaleString();
+
+            // Update Play Button URL
+            const linkEl = card.querySelector('.game-link');
+            if (linkEl && placeId) linkEl.href = `https://www.roblox.com/games/${placeId}`;
           }
-        };
-        updateCount();
-      });
 
-      percentCounters.forEach(counter => {
-        const target = +counter.getAttribute('data-target');
-        let count = 0;
-        const speed = target / 40;
+          // Fetch Game Votes (Like Ratio)
+          const votesRes = await fetch(`https://corsproxy.io/?https://games.roblox.com/v1/games/votes?universeIds=${universeId}`);
+          const votesData = await votesRes.json();
 
-        const updateCount = () => {
-          count += speed;
-          if (count < target) {
-            counter.innerText = Math.ceil(count) + '%';
-            setTimeout(updateCount, 25);
-          } else {
-            counter.innerText = target + '%';
+          if (votesData && votesData.data && votesData.data.length > 0) {
+            const vote = votesData.data[0];
+            const totalVotes = vote.upVotes + vote.downVotes;
+            const ratingPercent = totalVotes > 0 ? Math.round((vote.upVotes / totalVotes) * 100) : 0;
+
+            const ratingEl = card.querySelector('.rating-stat');
+            if (ratingEl) ratingEl.innerText = ratingPercent + '%';
           }
-        };
-        updateCount();
-      });
+        } catch (err) {
+          console.error("Error fetching Roblox data:", err);
+        }
+      }
     }
 
-    // Trigger counter animation on scroll into view
-    let animated = false;
-    window.addEventListener('scroll', () => {
-      const gamesSection = document.getElementById('games');
-      const position = gamesSection.getBoundingClientRect();
+    // Initial fetch on page load
+    fetchRobloxStats();
 
-      if (!animated && position.top < window.innerHeight && position.bottom >= 0) {
-        animateCounters();
-        animated = true;
-      }
-    });
+    // Automatically update stats live every 30 seconds
+    setInterval(fetchRobloxStats, 30000);
   </script>
 
 </body>
