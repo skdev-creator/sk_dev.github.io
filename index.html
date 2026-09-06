@@ -27,6 +27,11 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
+    /* ENABLES SMOOTH SCROLLING ACROSS ALL NAVBAR LINKS */
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background-color: var(--bg-dark);
       background-image: 
@@ -48,10 +53,14 @@
 
     /* TOP NAVIGATION BAR */
     nav {
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: var(--panel-bg);
+      background: rgba(12, 18, 25, 0.95);
+      backdrop-filter: blur(8px);
       border: 1px solid var(--panel-border);
       padding: 1rem 2rem;
       border-radius: 12px;
@@ -96,6 +105,7 @@
       letter-spacing: 1px;
       cursor: pointer;
       transition: all 0.2s;
+      text-decoration: none;
     }
 
     .nav-btn:hover {
@@ -116,6 +126,7 @@
       align-items: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.6);
       margin-bottom: 3rem;
+      scroll-margin-top: 100px;
     }
 
     /* LEFT SIDE CONTENT */
@@ -282,7 +293,11 @@
       padding-top: 1rem;
     }
 
-    /* WORKS SECTION */
+    /* GENERAL SECTIONS & TITLES */
+    section {
+      scroll-margin-top: 100px;
+    }
+
     .section-title {
       font-size: 1.8rem;
       font-weight: 900;
@@ -301,6 +316,7 @@
       background: var(--panel-border);
     }
 
+    /* WORKS SECTION */
     .works-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -322,7 +338,6 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
 
-    /* 3D INTERACTIVE VIEWPORT CONTAINER */
     model-viewer {
       width: 100%;
       height: 250px;
@@ -366,6 +381,119 @@
       text-transform: uppercase;
     }
 
+    /* GAMES WORKED ON SECTION */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .game-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .game-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .game-title {
+      font-size: 1.3rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .game-role {
+      font-size: 0.7rem;
+      font-weight: 800;
+      background: rgba(0, 188, 212, 0.1);
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .game-desc {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    /* LIVE GAME STATS BOX */
+    .game-stats {
+      background: #080e14;
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-value {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--accent-cyan-bright);
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 0.2rem;
+    }
+
+    .play-btn {
+      width: 100%;
+      text-align: center;
+      background: #14202c;
+      border: 1px solid var(--panel-border);
+      color: var(--text-bright);
+      padding: 0.7rem;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: block;
+    }
+
+    .play-btn:hover {
+      background: var(--accent-cyan);
+      color: #000;
+      border-color: var(--accent-cyan);
+    }
+
     /* RESPONSIVE DESIGN */
     @media (max-width: 900px) {
       .hero-panel {
@@ -384,15 +512,15 @@
     <nav>
       <div class="nav-logo">SK MODELING</div>
       <ul class="nav-links">
-        <li><a href="#" class="active">HOME</a></li>
+        <li><a href="#home" class="active">HOME</a></li>
         <li><a href="#works">WORKS</a></li>
-        <li><a href="#">GAMES I'VE TESTED</a></li>
-        <li><a href="#">CONTACT</a></li>
+        <li><a href="#games">GAMES I'VE WORKED ON</a></li>
+        <li><a href="#contact">CONTACT</a></li>
       </ul>
-      <button class="nav-btn">HIRE ME</button>
+      <a href="#contact" class="nav-btn">HIRE ME</a>
     </nav>
 
-    <div class="hero-panel">
+    <section id="home" class="hero-panel">
       
       <div class="hero-left">
         <div class="badge-tag">3D MODELER/BUILDER & GAME TESTER</div>
@@ -401,7 +529,7 @@
         <p class="hero-description">Specializing in Roblox Studio and Blender Models.</p>
         <div class="btn-group">
           <a href="#works" class="btn-primary">EXPLORE MODELS</a>
-          <a href="#works" class="btn-secondary">VIEW SHOWCASE</a>
+          <a href="#games" class="btn-secondary">VIEW SHOWCASE</a>
         </div>
       </div>
 
@@ -437,9 +565,9 @@
         </div>
       </div>
 
-    </div>
+    </section>
 
-    <div id="works">
+    <section id="works">
       <h2 class="section-title">FEATURED WORKS</h2>
       
       <div class="works-grid">
@@ -501,11 +629,115 @@
         </div>
 
       </div>
-    </div>
+    </section>
+
+    <section id="games">
+      <h2 class="section-title">GAMES I'VE WORKED ON</h2>
+
+      <div class="games-grid">
+
+        <div class="game-card">
+          <div>
+            <div class="game-header">
+              <h3 class="game-title">Elemental RNG</h3>
+              <span class="game-role">3D Modeler & Tester</span>
+            </div>
+            <p class="game-desc">RNG game featuring custom drop tables, mutation mechanics, and custom lobby structures.</p>
+          </div>
+
+          <div>
+            <div class="game-stats">
+              <div class="stat-item">
+                <span class="stat-value counter" data-target="125000">0</span>
+                <span class="stat-label">Visits</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value counter" data-target="420">0</span>
+                <span class="stat-label">Active</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value counter-percent" data-target="94">0</span>
+                <span class="stat-label">Rating</span>
+              </div>
+            </div>
+
+            <a href="#" class="play-btn" target="_blank">PLAY ON ROBLOX</a>
+          </div>
+        </div>
+
+        <div class="game-card">
+          <div>
+            <div class="game-header">
+              <h3 class="game-title">Zombie Survival Arena</h3>
+              <span class="game-role">Builder & Tester</span>
+            </div>
+            <p class="game-desc">Round-based arena game featuring enclosed map geometry, spawner systems, and custom props.</p>
+          </div>
+
+          <div>
+            <div class="game-stats">
+              <div class="stat-item">
+                <span class="stat-value counter" data-target="85000">0</span>
+                <span class="stat-label">Visits</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value counter" data-target="180">0</span>
+                <span class="stat-label">Active</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value counter-percent" data-target="91">0</span>
+                <span class="stat-label">Rating</span>
+              </div>
+            </div>
+
+            <a href="#" class="play-btn" target="_blank">PLAY ON ROBLOX</a>
+          </div>
+        </div>
+
+        <div class="game-card">
+          <div>
+            <div class="game-header">
+              <h3 class="game-title">Tower Defense Progression</h3>
+              <span class="game-role">Asset Creator</span>
+            </div>
+            <p class="game-desc">Character tier progression models and asset gear systems created in Blender.</p>
+          </div>
+
+          <div>
+            <div class="game-stats">
+              <div class="stat-item">
+                <span class="stat-value counter" data-target="210000">0</span>
+                <span class="stat-label">Visits</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value counter" data-target="650">0</span>
+                <span class="stat-label">Active</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value counter-percent" data-target="96">0</span>
+                <span class="stat-label">Rating</span>
+              </div>
+            </div>
+
+            <a href="#" class="play-btn" target="_blank">PLAY ON ROBLOX</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">CONTACT ME</h2>
+      <div style="background: var(--panel-bg); border: 1px solid var(--panel-border); padding: 2rem; border-radius: 14px; text-align: center; color: var(--text-dim); margin-bottom: 4rem;">
+        <p>Interested in collaborating or hiring me for 3D modeling and game testing?</p>
+        <p style="margin-top: 0.5rem; color: var(--accent-cyan); font-weight: 800;">Contact via Discord or Roblox Studio Messages</p>
+      </div>
+    </section>
 
   </div>
 
   <script>
+    // Live Modeling Counter Script
     const startDate = new Date('2026-06-19T10:43:00');
 
     function updateCounter() {
@@ -533,6 +765,58 @@
 
     updateCounter();
     setInterval(updateCounter, 1000);
+
+    // Animated Count-Up for Roblox Game Stats
+    function animateCounters() {
+      const counters = document.querySelectorAll('.counter');
+      const percentCounters = document.querySelectorAll('.counter-percent');
+
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        let count = 0;
+        const speed = target / 50;
+
+        const updateCount = () => {
+          count += speed;
+          if (count < target) {
+            counter.innerText = Math.ceil(count).toLocaleString();
+            setTimeout(updateCount, 25);
+          } else {
+            counter.innerText = target.toLocaleString();
+          }
+        };
+        updateCount();
+      });
+
+      percentCounters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        let count = 0;
+        const speed = target / 40;
+
+        const updateCount = () => {
+          count += speed;
+          if (count < target) {
+            counter.innerText = Math.ceil(count) + '%';
+            setTimeout(updateCount, 25);
+          } else {
+            counter.innerText = target + '%';
+          }
+        };
+        updateCount();
+      });
+    }
+
+    // Trigger counter animation on scroll into view
+    let animated = false;
+    window.addEventListener('scroll', () => {
+      const gamesSection = document.getElementById('games');
+      const position = gamesSection.getBoundingClientRect();
+
+      if (!animated && position.top < window.innerHeight && position.bottom >= 0) {
+        animateCounters();
+        animated = true;
+      }
+    });
   </script>
 
 </body>
