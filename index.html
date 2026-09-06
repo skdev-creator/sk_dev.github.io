@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Modeler & Asset Artist Portfolio</title>
+  <title>SK | 3D Modeler & Environment Artist</title>
   <style>
     :root {
-      --bg: #0d1117;
-      --card-bg: #161b22;
-      --border: #30363d;
-      --text: #c9d1d9;
-      --heading: #f0f6fc;
-      --accent: #f77234; /* Warm orange accent suited for 3D/Blender themes */
-      --tag-bg: rgba(247, 114, 52, 0.12);
+      --bg: #090d16;
+      --card-bg: rgba(22, 27, 34, 0.65);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent-orange: #ff6b35;
+      --accent-purple: #7928ca;
+      --accent-blue: #0070f3;
+      --gradient-text: linear-gradient(135deg, #ff6b35 0%, #f7c59f 50%, #7928ca 100%);
+      --glow: rgba(255, 107, 53, 0.25);
     }
 
     * {
@@ -24,170 +27,245 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg);
-      color: var(--text);
+      color: var(--text-main);
       line-height: 1.6;
       padding: 2rem 1rem;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Vibrant Ambient Background Gradients */
+    .bg-glow-1 {
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 107, 53, 0.15) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(80px);
+      z-index: -1;
+    }
+
+    .bg-glow-2 {
+      position: absolute;
+      top: 30%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(121, 40, 202, 0.18) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(100px);
+      z-index: -1;
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1050px;
       margin: 0 auto;
     }
 
+    /* Hero Section */
     header {
-      margin-bottom: 3rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 2rem;
+      margin-bottom: 4rem;
+      padding: 3rem 2rem;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--gradient-text);
+      border-radius: 20px 20px 0 0;
     }
 
     h1 {
-      color: var(--heading);
-      font-size: 2.8rem;
-      margin-bottom: 0.5rem;
+      font-size: 3.8rem;
+      font-weight: 800;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -1px;
+      margin-bottom: 0.3rem;
     }
 
     .subtitle {
-      color: var(--accent);
-      font-size: 1.25rem;
+      font-size: 1.35rem;
+      color: var(--accent-orange);
       font-weight: 600;
       letter-spacing: 0.5px;
+      margin-bottom: 1rem;
     }
 
     header p {
-      margin-top: 0.8rem;
-      font-size: 1.05rem;
-      max-width: 700px;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 750px;
     }
 
     section {
-      margin-bottom: 3.5rem;
+      margin-bottom: 4rem;
     }
 
     h2 {
-      color: var(--heading);
-      font-size: 1.6rem;
-      margin-bottom: 1.2rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.5rem;
+      font-size: 1.8rem;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
 
+    h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--card-border) 0%, rgba(0,0,0,0) 100%);
+    }
+
+    /* Skills Badges */
     .skills-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
+      gap: 0.8rem;
     }
 
     .badge {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--heading);
-      padding: 0.4rem 0.9rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 0.5rem 1.1rem;
+      border-radius: 50px;
+      font-size: 0.92rem;
       font-weight: 500;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
     }
 
+    .badge:hover {
+      border-color: var(--accent-orange);
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px var(--glow);
+      background: rgba(255, 107, 53, 0.08);
+    }
+
+    /* Portfolio Grid & Cards */
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.8rem;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 2rem;
     }
 
     .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
       overflow: hidden;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent);
+      transform: translateY(-8px);
+      border-color: rgba(255, 107, 53, 0.4);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--glow);
     }
 
     .card-preview {
       width: 100%;
-      height: 180px;
-      background-color: #21262d;
+      height: 200px;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(121, 40, 202, 0.1) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #8b949e;
+      color: var(--text-muted);
       font-size: 0.9rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .card-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      border-bottom: 1px solid var(--card-border);
+      position: relative;
     }
 
     .card-content {
-      padding: 1.5rem;
+      padding: 1.8rem;
     }
 
     .card h3 {
-      color: var(--heading);
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      color: var(--text-main);
+      margin-bottom: 0.6rem;
     }
 
     .card p {
-      font-size: 0.92rem;
-      margin-bottom: 1rem;
-      color: var(--text);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
     }
 
     .card-tags {
       display: flex;
-      gap: 0.4rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
     .tag {
-      font-size: 0.78rem;
-      color: var(--accent);
-      background: var(--tag-bg);
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-weight: 500;
+      font-size: 0.75rem;
+      color: #f7c59f;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(121, 40, 202, 0.15) 100%);
+      border: 1px solid rgba(255, 107, 53, 0.2);
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+      font-weight: 600;
     }
 
     .card-link {
-      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-orange);
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      transition: gap 0.2s ease;
     }
 
     .card-link:hover {
-      text-decoration: underline;
+      gap: 0.7rem;
+      color: #f7c59f;
     }
 
     footer {
       text-align: center;
-      color: #8b949e;
-      font-size: 0.85rem;
-      margin-top: 4rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 5rem;
       padding-top: 2rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--card-border);
     }
   </style>
 </head>
 <body>
 
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+
   <div class="container">
     <header>
-      <h1>Your Name</h1>
+      <h1>SK</h1>
       <div class="subtitle">3D Modeler & Environment Artist</div>
-      <p>Creating optimized 3D assets, procedural meshes, modular game environments, and character prop sets with clean topology.</p>
+      <p>Specializing in procedural mesh generation, low-poly game environments, clean quad topology, and modular prop design.</p>
     </header>
 
     <section id="skills">
-      <h2>Software & Technical Expertise</h2>
+      <h2>Software & Tech Stack</h2>
       <div class="skills-grid">
         <span class="badge">Blender 3D</span>
         <span class="badge">Roblox Studio</span>
@@ -195,7 +273,7 @@
         <span class="badge">Hard-Surface Modeling</span>
         <span class="badge">Python (Blender API)</span>
         <span class="badge">UV Unwrapping & Baking</span>
-        <span class="badge">Modular Environment Design</span>
+        <span class="badge">Modular Environments</span>
         <span class="badge">Substance Painter</span>
       </div>
     </section>
@@ -204,15 +282,13 @@
       <h2>3D Asset Showcase</h2>
       <div class="portfolio-grid">
         
-        <!-- Asset Card 1 -->
         <div class="card">
           <div class="card-preview">
-            <!-- Replace src with your render/wireframe image link -->
-            <span>[ Add 3D Render / Wireframe Image ]</span>
+            <span>[ Add 3D Render / Wireframe ]</span>
           </div>
           <div class="card-content">
             <h3>Procedural 3D Mesh Generator</h3>
-            <p>Python script built inside Blender to procedurally generate dynamic 3D terrain, volcanoes, and cabins with low poly counts.</p>
+            <p>Python script engineered inside Blender to procedurally generate dynamic terrain, volcanoes, and cabins with clean topology.</p>
             <div class="card-tags">
               <span class="tag">Blender</span>
               <span class="tag">Python</span>
@@ -222,14 +298,13 @@
           </div>
         </div>
 
-        <!-- Asset Card 2 -->
         <div class="card">
           <div class="card-preview">
-            <span>[ Add 3D Render / Wireframe Image ]</span>
+            <span>[ Add 3D Render / Wireframe ]</span>
           </div>
           <div class="card-content">
             <h3>Modular Game Lobbies & Arenas</h3>
-            <p>Enclosed game environments and survival arena assets built for high performance and modular level construction.</p>
+            <p>Enclosed game arenas and lobby assets designed for seamless modular construction and high performance.</p>
             <div class="card-tags">
               <span class="tag">Roblox Studio</span>
               <span class="tag">Environment Design</span>
@@ -239,14 +314,13 @@
           </div>
         </div>
 
-        <!-- Asset Card 3 -->
         <div class="card">
           <div class="card-preview">
-            <span>[ Add 3D Render / Wireframe Image ]</span>
+            <span>[ Add 3D Render / Wireframe ]</span>
           </div>
           <div class="card-content">
             <h3>Tiered Asset & Prop Progression</h3>
-            <p>Balanced character accessories, equipment tiers, and prop sets optimized for game progression systems.</p>
+            <p>Balanced character accessories, equipment sets, and prop progression items optimized for game mechanics.</p>
             <div class="card-tags">
               <span class="tag">Asset Creation</span>
               <span class="tag">Clean Topology</span>
@@ -260,7 +334,7 @@
     </section>
 
     <footer>
-      <p>© 2026 Your Name • 3D Modeling Portfolio hosted on GitHub Pages</p>
+      <p>© 2026 SK • Designed & Hosted on GitHub Pages</p>
     </footer>
   </div>
 
